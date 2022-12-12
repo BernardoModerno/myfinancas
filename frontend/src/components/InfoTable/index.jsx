@@ -6,8 +6,9 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { TableItem } from '../TableItem';
 
-export const InfoTable = () => {
+export const InfoTable = ({list}) => {
     return(
         <div className="container-infoTable">
             <TableContainer sx={{background: '#000', color: '#fff', borderRadius: 10}} >
@@ -21,32 +22,16 @@ export const InfoTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow
-
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell sx={{ color: '#fff' }} align="center">10/10/2022</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">Ganho</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">Salário</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">R$ 1000</TableCell>
-                        </TableRow>
-
-                        <TableRow
-
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell sx={{ color: '#fff' }} align="center">10/10/2022</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">Ganho</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">Salário</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">R$ 1000</TableCell>
-                        </TableRow>
-
-                        <TableRow
-
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell sx={{ color: '#fff' }} align="center">10/10/2022</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">Ganho</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">Salário</TableCell>
-                            <TableCell sx={{ color: '#fff' }} align="center">R$ 1000</TableCell>
-                        </TableRow>
+                        {list.map(financa => (
+                            <TableItem 
+                                key={financa.id}
+                                categoria_id={financa.Categorium.descricao} 
+                                data={financa.data} 
+                                valor={financa.valor}
+                                titulo={financa.titulo} 
+                            />
+                        ))}
+                        
                     </TableBody>
                 </Table>
             </TableContainer>

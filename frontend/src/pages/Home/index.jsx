@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+import { useState } from "react"
 import { Header } from "../../components/Header"
 import { Information } from "../../components/Information"
 import { InfoTable } from "../../components/InfoTable"
@@ -7,10 +9,23 @@ import './styles.css'
 
 export const Home = () => {
 
+    const [list, setList] = useState([])
+
+    useEffect(() => {
+        api.get('/listar/financa/0').then(response => {
+            console.log(response.data.rows);
+            setList(response.data.rows);
+        })
+    })
+
     function handleSalveItens(item) {
         const data = item.dados
         api.post('/criar/financa', data).then(response => {
             console.log(response);
+        })
+        api.get('/listar/financa/0').then(response => {
+            console.log(response.data.rows);
+            setList(response.data.rows);
         })
     }
 
@@ -19,7 +34,7 @@ export const Home = () => {
             <Header />
             <Information />
             <InputsContainer addItens={handleSalveItens} />
-            <InfoTable />
+            <InfoTable list={list} />
         </div>
     )
 }
