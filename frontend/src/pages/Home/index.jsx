@@ -16,7 +16,7 @@ export const Home = () => {
             console.log(response.data.rows);
             setList(response.data.rows);
         })
-    })
+    },[])
 
     function handleSalveItens(item) {
         const data = item.dados
@@ -29,10 +29,17 @@ export const Home = () => {
         })
     }
 
+    function handleSearchFinancasFromDate(data) {
+        api.get(`/listar/financa/dataInicial/${data.dataInicial}/dataFinal/${data.dataFinal}/page/0`)
+        .then(response => {
+            setList(response.data.rows);
+        })
+    }
+
     return (
         <div className="container">
             <Header />
-            <Information list={list}/>
+            <Information list={list} onSearch={handleSearchFinancasFromDate} />
             <InputsContainer addItens={handleSalveItens} />
             <InfoTable list={list} />
         </div>

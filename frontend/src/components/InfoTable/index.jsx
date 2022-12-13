@@ -22,15 +22,21 @@ export const InfoTable = ({list}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {list.map(financa => (
-                            <TableItem 
-                                key={financa.id}
-                                categoria_id={financa.Categorium.descricao} 
-                                data={financa.data} 
-                                valor={financa.valor}
-                                titulo={financa.titulo} 
-                            />
-                        ))}
+                        {list.length === 0 ? (
+                            <tr>
+                                <td style={{textAlign: 'center', padding: 10}} >Nenhuma Finança Encontrada</td>
+                            </tr>
+                        ) : (
+                                list.map(financa => (
+                                    <TableItem
+                                        key={financa.id}
+                                        categoria_id={financa.Categorium.descricao}
+                                        data={financa.data}
+                                        valor={financa.valor}
+                                        titulo={financa.titulo}
+                                    />
+                                ))
+                        )}
                         
                     </TableBody>
                 </Table>
