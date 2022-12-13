@@ -1,6 +1,29 @@
+import { useState } from 'react'
+import { api } from '../../services/api'
 import './styles.css'
 
-export const Information = () => {
+export const Information = ({list}) => {
+
+    const [ganho, setGanho] = useState(0)
+    const [despesas, setDespesas] = useState(0)
+    const [balanco, setBalanco] = useState(0)
+
+    console.log(list);
+
+    list.map(financa => {
+        api.get(`/pesquisar/financa/categoria_id/${financa.categoria_id}`).then(
+            response => {
+                if(response.data.Categoria.descricao === 'Ganho') {
+                    setGanho(response.data.saldo)
+                }
+                if (response.data.Categoria.descricao === 'Despesa') {
+                    setDespesas(response.data.saldo)
+                }
+                setBalanco(ganho - despesas)
+            }
+        )
+    })
+
     return (
         <section>
             <div className="input-date">
@@ -21,17 +44,17 @@ export const Information = () => {
 
             <div className="info-values">
                 <p>Receita</p>
-                <span className="span-green"> R$ 50,00</span>
+                <span className="span-green"> R$ {ganho}</span>
             </div>
 
             <div className="info-values">
                 <p>Despesa</p>
-                <span className="span-red"> R$ 50,00</span>
+                <span className="span-red"> R$ {despesas}</span>
             </div>
 
             <div className="info-values">
                 <p>Balanço</p>
-                <span className="span-green"> R$ 50,00</span>
+                <span className="span-green"> R$ {balanco}</span>
             </div>
         </section>
     )

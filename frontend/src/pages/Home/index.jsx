@@ -32,7 +32,7 @@ export const Home = () => {
     return (
         <div className="container">
             <Header />
-            <Information />
+            <Information list={list}/>
             <InputsContainer addItens={handleSalveItens} />
             <InfoTable list={list} />
         </div>
